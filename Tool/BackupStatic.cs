@@ -17,11 +17,11 @@ public class BackupStatic : EditorWindow
         {
             GameObject[] gameObjects = FindObjectsOfType<GameObject>();
             List<string> statciList = new List<string>();
-            for (int i = 0; i < gameObjects.Length; i++)
+            foreach (GameObject gameObject in gameObjects)
             {
-                if (gameObjects[i].isStatic)
+                if (GameObjectUtility.GetStaticEditorFlags(gameObject) != 0)
                 {
-                    statciList.Add(gameObjects[i].GetInstanceID().ToString());
+                    statciList.Add(gameObject.GetInstanceID().ToString() + "," + (int)GameObjectUtility.GetStaticEditorFlags(gameObject));
                 }
             }
             System.IO.File.WriteAllLines(path, statciList.ToArray());
@@ -34,7 +34,7 @@ public class BackupStatic : EditorWindow
                 {
                     try
                     {
-                        ((GameObject)EditorUtility.InstanceIDToObject(int.Parse(ins))).isStatic = true;
+                        GameObjectUtility.SetStaticEditorFlags((GameObject)EditorUtility.InstanceIDToObject(int.Parse(ins.Split(',')[0])), (StaticEditorFlags)int.Parse(ins.Split(',')[1]));
                     }
                     catch
                     {
