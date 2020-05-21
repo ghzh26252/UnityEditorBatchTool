@@ -10,24 +10,15 @@ public class RemoveCollider : EditorWindow
 
     static void DoRemoveCollider()
     {
-        Master(Selection.gameObjects);
+        Master(Selection.GetFiltered<GameObject>(SelectionMode.Deep));
     }
-    static void Master(GameObject[] mygameObjects)
+    static void Master(GameObject[] gameObjects)
     {
-        foreach (GameObject gameObject in mygameObjects)
+        foreach (GameObject gameObject in gameObjects)
         {
             if (gameObject.GetComponents<Collider>().Length>0)
                 foreach(Collider colloder in gameObject.GetComponents<Collider>())
                     DestroyImmediate(colloder);
-            if (gameObject.transform.childCount > 0)
-            {
-                myList.Clear();
-                for (int n = 0; n < gameObject.transform.childCount; n++)
-                {
-                    myList.Add(gameObject.transform.GetChild(n).gameObject);
-                }
-                Master(myList.ToArray());
-            }
         }
     }
 }

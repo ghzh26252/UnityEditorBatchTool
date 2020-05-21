@@ -9,9 +9,9 @@ public class BatchArray : EditorWindow
         GetWindow<BatchArray>("批量阵列");
     }
     GameObject one;
-    int number1 = 0;
-    int number2 = 0;
-    int number3 = 0;
+    int number1 = 1;
+    int number2 = 1;
+    int number3 = 1;
     float interval1 = 1;
     float interval2 = 1;
     float interval3 = 1;
@@ -20,10 +20,10 @@ public class BatchArray : EditorWindow
         EditorGUILayout.LabelField("X:");
         EditorGUILayout.BeginHorizontal();
         number1 = EditorGUILayout.IntField("数量:",number1);
-        if (number1 < 0)
-            number1 = 0;
+        if (number1 <= 0)
+            number1 = 1;
         interval1 = EditorGUILayout.FloatField("间隔:",interval1);
-        if (interval1 < 1)
+        if (interval1 == 0)
             interval1 = 1;
         EditorGUILayout.EndHorizontal();
 
@@ -32,8 +32,8 @@ public class BatchArray : EditorWindow
         EditorGUILayout.LabelField("Z:");
         EditorGUILayout.BeginHorizontal();
         number2 = EditorGUILayout.IntField("数量:", number2);
-        if (number2 < 0)
-            number2 = 0;
+        if (number2 <= 0)
+            number2 = 1;
         interval2 = EditorGUILayout.FloatField("间隔:", interval2);
         if (interval2 == 0)
             interval2 = 1;
@@ -44,10 +44,10 @@ public class BatchArray : EditorWindow
         EditorGUILayout.LabelField("Y:");
         EditorGUILayout.BeginHorizontal();
         number3 = EditorGUILayout.IntField("数量:", number3);
-        if (number3 < 0)
-            number3 = 0;
+        if (number3 <= 0)
+            number3 = 1;
         interval3 = EditorGUILayout.FloatField("间隔:", interval3);
-        if (interval3 < 1)
+        if (interval3 == 0)
             interval3 = 1;
         EditorGUILayout.EndHorizontal();
 
