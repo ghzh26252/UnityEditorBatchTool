@@ -49,3 +49,6 @@ ReplaceMaterial:
 替换材质
 遍历选择物体，替换掉所有指定材质的引用。
 ![Image](https://github.com/ghzh26252/UnityEditorBatchTool/blob/master/Image/%E6%9B%BF%E6%8D%A2%E6%9D%90%E8%B4%A8.png)
+
+SmartBoxCollider:
+为选择物体添加BoxCollider组件，自动设置范围，使其包含所有带有MeshRenderer组件的子物体。
