@@ -1,7 +1,7 @@
 # UnityEditorBatchTool
 自用UnityEditor批量重命名/整列/属性设置等小工具
 
-##BackupStatic:
+## BackupStatic:
 
 备份和还原场景内物体的静态标签，通过txt文本存储设有静态标签物体的InstanceID和StaticEditorFlags，用于修改后还原。
 
