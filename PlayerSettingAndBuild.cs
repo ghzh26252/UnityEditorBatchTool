@@ -6,20 +6,27 @@ public class PlayerSettingAndBuild : EditorWindow
     [MenuItem("工具/多场景一键发布")]
     static void ShowWindow()
     {
+        scenesNumber = EditorBuildSettings.scenes.Length;
+        for (int i = 0; i < scenesNumber; i++)
+        {
+            scenesName.Add(EditorBuildSettings.scenes[i].path.Split('/', '.')[EditorBuildSettings.scenes[i].path.Split('/', '.').Length - 2]);
+            //frountBuilds[k].scenesBool[i] = GUILayout.Toggle(frountBuilds[k].scenesBool[i], EditorBuildSettings.scenes[i].path.Split('/', '.')[EditorBuildSettings.scenes[i].path.Split('/', '.').Length - 2]);
+        }
         GetWindow<PlayerSettingAndBuild>("多场景一键发布");
     }
-
-    List<FrountBuild> frountBuilds = new List<FrountBuild>();
-    List<BackBuild> backBuilds = new List<BackBuild>();
-    string buildPath = "E:/Desktop";
-    Vector2 vector2;
+    static List<string> scenesName = new List<string>();
+    static int scenesNumber;
+    static List<FrountBuild> frountBuilds = new List<FrountBuild>();
+    static List<BackBuild> backBuilds = new List<BackBuild>();
+    static string buildPath = "E:/Desktop";
+    static Vector2 vector2;
     class FrountBuild
     {
         public string name;
         public List<bool> scenesBool = new List<bool>();
         public FrountBuild()
         {
-            for (int i = 0; i < EditorBuildSettings.scenes.Length; i++)
+            for (int i = 0; i < scenesNumber; i++)
             {
                 scenesBool.Add(false);
             }
@@ -30,7 +37,7 @@ public class PlayerSettingAndBuild : EditorWindow
         public string name;
         public List<string> scenesGUID = new List<string>();
     }
-    List<FrountBuild> Back2Frount(List<BackBuild> backBuildsT)
+    static List<FrountBuild> Back2Frount(List<BackBuild> backBuildsT)
     {
         List<FrountBuild> fbs = new List<FrountBuild>();
         foreach(BackBuild backBuildT in backBuildsT)
@@ -46,7 +53,7 @@ public class PlayerSettingAndBuild : EditorWindow
         }
         return fbs;
     }
-    List<BackBuild> Frount2Back(List<FrountBuild> frountBuildsT)
+    static List<BackBuild> Frount2Back(List<FrountBuild> frountBuildsT)
     {
         List<BackBuild> bbs = new List<BackBuild>();
         foreach (FrountBuild frountBuildT in frountBuildsT)
@@ -71,9 +78,10 @@ public class PlayerSettingAndBuild : EditorWindow
             GUILayout.BeginHorizontal();
             frountBuilds[k].name = EditorGUILayout.TextField("发布名称", frountBuilds[k].name);
             GUILayout.BeginVertical();
-            for(int i = 0; i<EditorBuildSettings.scenes.Length; i++)
+            for(int i = 0; i< scenesNumber; i++)
             {
-                frountBuilds[k].scenesBool[i] = GUILayout.Toggle(frountBuilds[k].scenesBool[i], EditorBuildSettings.scenes[i].path.Split('/', '.')[EditorBuildSettings.scenes[i].path.Split('/','.').Length-2]);
+                //frountBuilds[k].scenesBool[i] = GUILayout.Toggle(frountBuilds[k].scenesBool[i], EditorBuildSettings.scenes[i].path.Split('/', '.')[EditorBuildSettings.scenes[i].path.Split('/','.').Length-2]);
+                frountBuilds[k].scenesBool[i] = GUILayout.Toggle(frountBuilds[k].scenesBool[i], scenesName[i]);
             }
             GUILayout.EndVertical();
             if (GUILayout.Button("-", GUILayout.Width(30)))
@@ -81,7 +89,7 @@ public class PlayerSettingAndBuild : EditorWindow
                 frountBuilds.RemoveAt(k);
             }
             GUILayout.EndHorizontal();
-            GUILayout.Label("----------------");
+            GUILayout.Label("--------------------------------------------------------------------------------------------------------------------------------");
         }
         if (GUILayout.Button("+"))
         {
